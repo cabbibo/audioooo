@@ -82,7 +82,7 @@ public void SaveAllForms(){
      }
 
         f.saveName = Saveable.GetSafeName();
-        Saveable.Save(f,f.saveName);
+        Saveable.Save(f);
         
     }
 }

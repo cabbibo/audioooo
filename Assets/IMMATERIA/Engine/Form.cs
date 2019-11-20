@@ -54,10 +54,10 @@ public class Form : Cycle {
     }
 
     if( Saveable.Check(saveName) && !alwaysRemake ){
-      Saveable.Load(this,saveName);
+      Saveable.Load(this);
     }else{
       Embody();
-      Saveable.Save(this,saveName);
+      Saveable.Save(this);
     }
 
   }

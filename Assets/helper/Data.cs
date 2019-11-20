@@ -22,15 +22,15 @@ public class Data : Cycle
 
   public Transform camera;
   public float SERVER_TIME;
-  public HumanBuffer humans;
+ // public HumanBuffer humans;
 
   public override void Create(){
-    SafeInsert(humans);
+ //   SafeInsert(humans);
   }
 
 
   public void BindPlayerData(Life toBind){
-    toBind.BindForm("_HumanBuffer",humans);
+   // toBind.BindForm("_HumanBuffer",humans);
   }
   
   public void BindCameraData(Life toBind){
