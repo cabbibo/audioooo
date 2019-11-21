@@ -9,7 +9,12 @@
   SubShader{
     Cull Off
     Pass{
+// inside SubShader
+Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
 
+// inside Pass
+//ZWrite Off
+//Blend SrcAlpha OneMinusSrcAlpha
       CGPROGRAM
       
       #pragma target 4.5
@@ -50,15 +55,15 @@
       uniform float3 _Extents;
       uniform float3 _Center;
       
-      StructuredBuffer<Vert> _VertBuffer;
 
 
-      //uniform float4x4 worldMat;
+      uniform float4x4 _Transform;
 
       //A simple input struct for our pixel shader step containing a position.
       struct varyings {
           float4 pos      : SV_POSITION;
           float3 worldPos : TEXCOORD1;
+          float3 nor  : TEXCOORD3;
           float2 uv       : TEXCOORD2;
       };
 
@@ -88,7 +93,7 @@ varyings vert (uint id : SV_VertexID){
     if( alternate == 5 ){ extra = -l + u; uv = float2(0,1); }
 
 
-      Vert v = _VertBuffer[base % _Count];
+      Vert v = _TransferBuffer[base % _Count];
 
 
 
@@ -112,9 +117,10 @@ varyings vert (uint id : SV_VertexID){
     //tmpPos = mul( _Transform , float4(tmpPos ,1)).xyz;
 
       float3 pos = tmpPos;
-      float3 fPos = mul(unity_ObjectToWorld , float4(pos,1)).xyz;
-      o.worldPos = (fPos) + (extra / v.dist) * _Size;
+      float3 fPos = mul(_Transform , float4(pos,1)).xyz;
+      o.worldPos = (fPos) + extra * _Size / ((pow(v.dist,1) + .1) * 10);// (extra / v.dist) * _Size;
       o.uv = uv;
+      o.nor = v.nor;
       o.pos = mul (UNITY_MATRIX_VP, float4(o.worldPos,1.0f));
 
   }
@@ -124,7 +130,8 @@ return o;
       float4 frag (varyings v) : COLOR {
 
           if( length( v.uv -.5) > .5 ){ discard;}
-          return float4(_Color,1 );
+          
+          return float4(v.nor * .5 + .5,1 );
       }
 
       ENDCG

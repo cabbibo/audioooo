@@ -1,0 +1,143 @@
+﻿#pragma kernel Flow
+
+
+struct Vert{
+  float3 pos;
+  float3 vel;
+  float3 nor;
+  float3 ogPos;
+  float3 axis;
+  float life;
+};
+
+struct Volume{
+  float dist;
+  float3 nor;
+};
+
+RWStructuredBuffer<Vert> _VertBuffer;
+RWStructuredBuffer<Volume> _VolumeBuffer;
+
+float4x4 _Transform;
+float4x4 _VolumeTransform;
+float4x4 _InverseVolumeTransform;
+
+int _VertBuffer_COUNT;
+//int _TransformBuffer_COUNT;
+
+#include "../Chunks/safeID.cginc"
+#include "../Chunks/snoise.cginc"
+#include "../Chunks/hash.cginc"
+#include "../Chunks/curlNoise.cginc"
+
+float _Time;
+float _DT;
+
+
+float3 _Dimensions;
+float3 _Extents;
+float3 _Center;
+
+Texture3D<float4> sdfTexture;
+SamplerState _LinearClamp;
+
+
+int GetFID( int x , int y, int z){
+   return x + y * int(_Dimensions.x) + z * int(_Dimensions.y) * int(_Dimensions.x);
+}
+
+int GetID( float3 pos ){
+
+  if( abs(pos.x) < 1 &&abs(pos.y) < 1 &&abs(pos.z) < 1){
+
+    int x = clamp( floor(((pos.x +1 )/2) * _Dimensions.x),0,_Dimensions.x); 
+    int y = clamp( floor(((pos.y +1 )/2) * _Dimensions.y),0,_Dimensions.y); 
+    int z = clamp( floor(((pos.z +1 )/2) * _Dimensions.z),0,_Dimensions.z); 
+
+    //return x  + y * _VolDim + z * _VolDim * _VolDim;
+    return GetFID(x,y,z);
+
+  }else{
+    return 0;
+  }
+
+
+}
+
+
+#define NR_THREADS 128
+[numthreads(NR_THREADS,1,1)]
+void Flow(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
+
+  int pID = threadID + u3GroupID.x * NR_THREADS;
+
+  pID = safeID(pID,_VertBuffer_COUNT);
+  Vert vert = _VertBuffer[pID];
+
+  float3 fPos = vert.pos;// mul(_FullWTL,float4(vert.pos,1));
+
+    float3 tPos = mul( _InverseVolumeTransform ,float4(fPos,1));
+    tPos= (((tPos+_Center) * _Extents));
+    int id = GetID( tPos );
+
+    Volume v = _VolumeBuffer[id];
+
+   float4 t = sdfTexture.SampleLevel(_LinearClamp,(tPos +1)/2 , 0);
+
+    float3 x = mul(_Transform,float4(1,0,0,0));
+    float3 y = mul(_Transform,float4(0,1,0,0));
+    float3 z = mul(_Transform,float4(0,0,1,0));
+  if( vert.life <= 0 ){
+    fPos = mul( _Transform,float4(0,0,0,1)).xyz;
+    vert.vel = 0;// (v * 1 + dir) * .001;
+    vert.life = 1;
+    vert.pos = fPos;
+
+
+    vert.pos += (hash(float(pID* 100+_Time) )-.5) * x;
+    vert.pos += (hash(float(pID* 200+_Time) )-.5) * y;
+    vert.pos += (hash(float(pID* 300+_Time) )-.5) * z;
+
+
+  }else{
+    float3 force = 0;
+
+   // force += float3(0,-.001,0);
+
+
+
+    //force += normalize(mul( _Transform , float4(0,1,0,0)).xyz) * .0003;
+    force += curlNoise( fPos * 1.1  + y * _Time * .03  ) * .001;
+
+    force +=z * .001;
+
+
+    if( length(force)> 1 ){ force = normalize(force) * 1;}
+    if( length(vert.vel)> 1 ){ vert.vel = normalize(vert.vel) * 1;}
+
+
+
+    force += t.yzw * (2-t.x) * .001;
+
+
+
+    vert.vel += force;
+
+
+    fPos += vert.vel * _DT*60;
+
+    vert.vel *= .9;//* minDist;
+    vert.life -= .002 * (hash(float(pID))  * .5 + .5);//_LifeReduceSpeed;
+    
+    vert.pos = fPos;
+
+
+
+  }
+  
+    vert.axis.z = v.dist;
+ // vert.nor = mul(rotation(vert.axis,vert.life*20*(hash(float(pID*123)))+hash(float(pID * 23))),float4(0,0,1,0)).xyz;
+  
+  _VertBuffer[pID] = vert;
+
+}

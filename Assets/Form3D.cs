@@ -23,16 +23,23 @@ public class Form3D : Form
       structSize = 4;
     }
 
+    public override void OnBirthed(){
+      if(loadedFromFile){ MakeTexture();}
+    }
 
     public override void Embody(){
 
-      float[] values = new float[count];
+      float[] values = new float[count* structSize];
       int index = 0;
       for( int i = 0; i < count; i++ ){
-        values[index++] = 10;
-        values[index++] = 10;
-        values[index++] = 10;
-        values[index++] = 10;
+        values[index++] = 1000;
+        values[index++] = 1000;
+        values[index++] = 1000;
+        values[index++] = 1000;
+
+        if( i < 10 ){
+          print("some mistake here");
+        }
       }
 
       SetData(values);
@@ -40,16 +47,15 @@ public class Form3D : Form
 
 
 public override void WhileDebug(){
-    mpb.SetBuffer("_VertBuffer", _buffer);
+    mpb.SetBuffer("_TransferBuffer", _buffer);
     mpb.SetInt("_Count",count);
 
+    mpb.SetMatrix( "_Transform" , transform.localToWorldMatrix );
     mpb.SetVector("_Center", center);
     mpb.SetVector("_Dimensions", dimensions);
     mpb.SetVector("_Extents", extents);
     
     Graphics.DrawProcedural(debugMaterial,  new Bounds(transform.position, Vector3.one * 5000), MeshTopology.Triangles, count * 3 * 2 , 1, null, mpb, ShadowCastingMode.Off, true, LayerMask.NameToLayer("Debug"));
-
-
 
 }
 
@@ -129,10 +135,10 @@ public override void WhileDebug(){
 
 
 
-  public Texture3D MakeTexture( float[] values ){
+  public void MakeTexture(){
 
-    Color[] bmp = GenerateBitmap(values);
-    Texture3D _texture = new Texture3D((int)dimensions.x, (int)dimensions.y, (int)dimensions.z, TextureFormat.RGBAHalf, true);
+    Color[] bmp = GenerateBitmap(GetData());
+    _texture = new Texture3D((int)dimensions.x, (int)dimensions.y, (int)dimensions.z, TextureFormat.RGBAHalf, true);
 
     _texture.name = "Distance Field Texture";
     _texture.filterMode = FilterMode.Trilinear;
@@ -140,7 +146,10 @@ public override void WhileDebug(){
     _texture.SetPixels(bmp);
     _texture.Apply();
 
-    return _texture;
+
+    print("texture");
+    print(_texture);
+    //return _texture;
 
   }
 
@@ -160,7 +169,7 @@ public override void WhileDebug(){
   }
 
   public void RemakeTexture(){
-    _texture = MakeTexture(GetData());
+    MakeTexture();
   }
 
 

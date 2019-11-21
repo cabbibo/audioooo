@@ -7,13 +7,8 @@ public class BindTransform : Binder
 
     public Matrix4x4 transformMatrix;
     public override void Bind(){
-      toBind.BindMatrix("_Transform", () => this.transformMatrix );
+      toBind.BindMatrix("_Transform", () => transform.localToWorldMatrix);
     }
 
-
-    public override void WhileLiving( float v){
-//      print(transform.localToWorldMatrix[0]);
-      transformMatrix = transform.localToWorldMatrix;
-    }
   }
 }

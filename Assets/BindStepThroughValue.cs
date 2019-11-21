@@ -11,6 +11,9 @@ public class BindStepThroughValue : Binder
   public int currentStep;
   public float percentageDone;
 
+  public int iterationsPerFrame;
+  public int stepsPerIteration;
+
   public override void OnBirthed(){
     currentStep = 0;
   }
@@ -22,8 +25,12 @@ public class BindStepThroughValue : Binder
 
   public override void WhileLiving( float v ){
 
-    percentageDone = (float)currentStep / (float)toStepThrough.count;
-    currentStep ++;
+
+    for( int i = 0; i < iterationsPerFrame; i++ ){
+      percentageDone = (float)currentStep / (float)toStepThrough.count;
+      currentStep += stepsPerIteration;
+      toBind.YOLO();
+    }
 
   }
 

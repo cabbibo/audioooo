@@ -70,19 +70,34 @@ public class Saveable {
       BinaryFormatter bf = new BinaryFormatter();
       FileStream stream = new FileStream(GetFullName(form.saveName),FileMode.Open);
 
+
+      
       if( form.intBuffer ){
         int[] data = bf.Deserialize(stream) as int[];
-        form.SetDNA(data);
-      }else{
-        float[] data = bf.Deserialize(stream) as float[];
         if( data.Length != form.count * form.structSize ){
           form.DebugThis("YOUR INPUT DATA IS OFF");
           form.saveName = GetSafeName();
           form.Embody();
-          
+          form.loadedFromFile = false;
           Saveable.Save(form);
 
         }else{
+          form.DebugThis("loadedFromFileee");
+          form.SetDNA(data);
+        }
+      }else{
+        float[] data = bf.Deserialize(stream) as float[];
+
+        if( data.Length != form.count * form.structSize ){
+          form.DebugThis("YOUR INPUT DATA IS OFF");
+          form.saveName = GetSafeName();
+          form.Embody();
+          form.loadedFromFile = false;
+          Saveable.Save(form);
+
+        }else{
+          
+          form.DebugThis("loadedFromFileee");
           form.SetDNA(data);
         }
       }

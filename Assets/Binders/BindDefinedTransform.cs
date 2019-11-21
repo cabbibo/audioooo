@@ -13,8 +13,8 @@ public class BindDefinedTransform : Binder
     public bool bindScale;
     public string scaleName;
     public override void Bind(){
-      toBind.BindMatrix( transformName, () => transformToBind.worldToLocalMatrix );
-      if( bindInverse ){toBind.BindMatrix( inverseName, () => transformToBind.localToWorldMatrix );}
+      toBind.BindMatrix( transformName, () => transformToBind.localToWorldMatrix );
+      if( bindInverse ){toBind.BindMatrix( inverseName, () => transformToBind.worldToLocalMatrix );}
       if( bindScale ){toBind.BindFloat( scaleName, () => transformToBind.lossyScale.x );}
     }
 
