@@ -36,10 +36,6 @@ public class Form3D : Form
         values[index++] = 1000;
         values[index++] = 1000;
         values[index++] = 1000;
-
-        if( i < 10 ){
-          print("some mistake here");
-        }
       }
 
       SetData(values);
@@ -147,7 +143,7 @@ public override void WhileDebug(){
     _texture.Apply();
 
 
-    print("texture");
+ //   print("texture");
     print(_texture);
     //return _texture;
 

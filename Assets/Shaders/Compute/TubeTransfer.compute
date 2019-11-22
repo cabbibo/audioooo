@@ -101,14 +101,14 @@ void Transfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
 
     int pID = threadID + u3GroupID.x * NR_THREADS;
 
-    int particleID = pID / ( _TubeLength * _TubeWidth);
+       int particleID = pID / ( _TubeLength * (_TubeWidth+1));
 
-    int idInTube = pID % ( _TubeLength * _TubeWidth);
-    int row = idInTube / _TubeWidth;
-    int col = pID % _TubeWidth;
+    int idInTube = pID % ( _TubeLength * (_TubeWidth+1));
+    int row = idInTube / (_TubeWidth+1);
+    int col = pID % (_TubeWidth+1);
 
-    float rowVal = float(row) / float(_TubeLength);
-    float colVal =  (float(col)/float(_TubeWidth)) ;
+    float rowVal =  (float(row) / float(_TubeLength)) * .95;
+    float colVal =  (float(col%_TubeWidth)/float(_TubeWidth)) ;
 
     float3 upPos; float3 doPos;
 
@@ -150,19 +150,18 @@ void StraightTransfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_Group
 
     int pID = threadID + u3GroupID.x * NR_THREADS;
 
-    int particleID = pID / ( _TubeLength * _TubeWidth);
+      int particleID = pID / ( _TubeLength * (_TubeWidth+1));
 
-    int idInTube = pID % ( _TubeLength * _TubeWidth);
-    int row = idInTube / _TubeWidth;
-    int col = pID % _TubeWidth;
+    int idInTube = pID % ( _TubeLength * (_TubeWidth+1));
+    int row = idInTube / (_TubeWidth+1);
+    int col = pID % (_TubeWidth+1);
 
-    float rowVal = float(row) / float(_TubeLength);
-    float colVal =  (float(col)/float(_TubeWidth)) ;
+    float rowVal =  (float(row) / float(_TubeLength)) * .95;
+    float colVal =  (float(col%_TubeWidth)/float(_TubeWidth)) ;
 
     float3 upPos; float3 doPos;
 
     float3 pos = cubicFromValue( rowVal , particleID , upPos , doPos );
-
     float3 d = normalize(upPos - pos);
     float3 x = normalize(cross( d , float3(0,1,0)) );
     float3 y = normalize(cross( x , d));
@@ -198,14 +197,17 @@ void BellTransfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) 
 
     int pID = threadID + u3GroupID.x * NR_THREADS;
 
-    int particleID = pID / ( _TubeLength * _TubeWidth);
 
-    int idInTube = pID % ( _TubeLength * _TubeWidth);
-    int row = idInTube / _TubeWidth;
-    int col = pID % _TubeWidth;
 
-    float rowVal = float(row) / float(_TubeLength);
-    float colVal =  (float(col)/float(_TubeWidth)) ;
+
+    int particleID = pID / ( _TubeLength * (_TubeWidth+1));
+
+    int idInTube = pID % ( _TubeLength * (_TubeWidth+1));
+    int row = idInTube / (_TubeWidth+1);
+    int col = pID % (_TubeWidth+1);
+
+    float rowVal =  (float(row) / float(_TubeLength)) * .95;
+    float colVal =  (float(col%_TubeWidth)/float(_TubeWidth)) ;
 
     float3 upPos; float3 doPos;
 

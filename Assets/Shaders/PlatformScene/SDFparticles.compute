@@ -22,6 +22,10 @@ float4x4 _Transform;
 float4x4 _VolumeTransform;
 float4x4 _InverseVolumeTransform;
 
+
+float3 _TouchLocation;
+float  _TouchPower;
+
 int _VertBuffer_COUNT;
 //int _TransformBuffer_COUNT;
 
@@ -34,12 +38,17 @@ float _Time;
 float _DT;
 
 
+float3 _RO;
+float3 _RD;
+
 float3 _Dimensions;
 float3 _Extents;
 float3 _Center;
 
 Texture3D<float4> sdfTexture;
 SamplerState _LinearClamp;
+
+#include "../Chunks/GetRayForce.cginc"
 
 
 int GetFID( int x , int y, int z){
@@ -111,6 +120,12 @@ void Flow(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
 
     force +=z * .001;
 
+    float3 dif = fPos - _TouchLocation;
+    //force += (normalize(dif)/(.3 + pow(length(dif),3)))* _TouchPower * .03;
+
+    if(length(_RD) != 0 && length(_RO) != 0){
+      force += GetRayForce( fPos , .01 , 2) * _TouchPower;
+    }
 
     if( length(force)> 1 ){ force = normalize(force) * 1;}
     if( length(vert.vel)> 1 ){ vert.vel = normalize(vert.vel) * 1;}

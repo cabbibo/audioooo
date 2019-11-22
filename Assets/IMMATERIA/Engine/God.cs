@@ -80,11 +80,45 @@ public void SaveAllForms(){
      if( Saveable.Check(f.saveName)){
         Saveable.Delete(f.saveName);
      }
-
-        f.saveName = Saveable.GetSafeName();
-        Saveable.Save(f);
         
     }
+
+    Saveable.ClearNames();
+
+    foreach( Form f in forms ){
+        f.saveName = Saveable.GetSafeName();
+        Saveable.Save(f);
+    }
+}
+
+
+public void FullRebuild(){
+
+    foreach( Form f  in forms ){  
+     if( Saveable.Check(f.saveName)){
+        Saveable.Delete(f.saveName);
+     } 
+    new WaitForSeconds(5);
+
+     f.alwaysRemake = true;
+    }
+    Reset();
+    OnDisable();
+    OnEnable();
+  
+  
+    Saveable.ClearNames();
+
+    foreach( Form f in forms ){
+        f.saveName = Saveable.GetSafeName();
+        Saveable.Save(f);
+        f.alwaysRemake = false;
+    
+    }
+
+    DebugThis("" +Saveable.CheckIfAllNamesSafe());
+
+     
 }
 
 

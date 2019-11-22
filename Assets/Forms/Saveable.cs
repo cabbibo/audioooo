@@ -27,6 +27,26 @@ public class Saveable {
 
   }
 
+
+  public static bool CheckIfAllNamesSafe(){
+
+    bool allSafe = true;
+    int i1 = 0;
+    int i2 = 0;
+    foreach( string s1 in names ){
+    i1 ++;
+    i2 = 0;
+    foreach( string s2 in names ){
+      i2++;
+      if( s1 == s2 && i1 != i2 ){
+        allSafe = false;
+      }
+    }
+    }
+
+    return allSafe;
+  }
+
   public static void ClearNames(){
     names.Clear();
   }
@@ -82,7 +102,7 @@ public class Saveable {
           Saveable.Save(form);
 
         }else{
-          form.DebugThis("loadedFromFileee");
+          //form.DebugThis("loadedFromFileee");
           form.SetDNA(data);
         }
       }else{
@@ -97,7 +117,7 @@ public class Saveable {
 
         }else{
           
-          form.DebugThis("loadedFromFileee");
+         // form.DebugThis("loadedFromFileee");
           form.SetDNA(data);
         }
       }

@@ -82,8 +82,12 @@ public int numFrames;
     transformArray = HELP.GetMatrixFloats( transform.localToWorldMatrix );
   }
 
+
+  public override void OnBirthed(){
+  //  Set();
+  }
   public void Set(){
-   // set.YOLO();
+   set.YOLO();
   }
 
 

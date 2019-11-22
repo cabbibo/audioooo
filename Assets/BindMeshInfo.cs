@@ -9,7 +9,6 @@ public class BindMeshInfo : Binder
   public IndexForm tris;
 
   public override void Bind(){
-    print("helklo09");
 
     toBind.BindForm("_VertBuffer" , verts);
     toBind.BindForm("_TriBuffer" , tris);

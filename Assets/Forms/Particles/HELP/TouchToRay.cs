@@ -55,6 +55,7 @@ public class TouchToRay : MonoBehaviour {
   public Vector2 endPos;
 
   public Ray ray;
+  public Ray oRay;
 
   public float startTime;
   public float endTime;
@@ -69,6 +70,10 @@ public class TouchToRay : MonoBehaviour {
   public Vector2 vel2;
 
   public int touchID = 0;
+
+  public string currentHitName;
+  public Vector3 currentHitLocation;
+  public string downHitName;
 
   void Start(){}
   
@@ -136,12 +141,15 @@ public class TouchToRay : MonoBehaviour {
 
     
 
+    oRay.origin = ray.origin;
+    oRay.direction = ray.direction;
+
     RayOrigin = Camera.main.ScreenToWorldPoint( new Vector3( p.x , p.y , Camera.main.nearClipPlane ) );
-    RayDirection = (Camera.main.transform.position - RayOrigin).normalized;
+    RayDirection = -(Camera.main.transform.position - RayOrigin).normalized;
 
 
     ray.origin = RayOrigin;
-    ray.direction = -RayDirection;//.normalized;
+    ray.direction = RayDirection;//.normalized;
 
 
 
@@ -189,6 +197,20 @@ public class TouchToRay : MonoBehaviour {
   }
 
   void whileDown(){
+
+    RaycastHit hit;
+     // Does the ray intersect any objects excluding the player layer
+    if (Physics.Raycast(RayOrigin,RayDirection, out hit, Mathf.Infinity)){
+       currentHitLocation = hit.point;
+       currentHitName = hit.collider.name;
+    }else{
+      currentHitLocation =Vector3.zero;
+
+      currentHitName = null;
+    }
+
+        
+   
     WhileDown.Invoke( ray );
   }
 
@@ -200,9 +222,19 @@ public class TouchToRay : MonoBehaviour {
   void onDown(){
     OnDown.Invoke();
 
+    RaycastHit hit;
+     // Does the ray intersect any objects excluding the player layer
+    if (Physics.Raycast(RayOrigin,RayDirection, out hit, Mathf.Infinity)){
+       downHitName = hit.collider.name;
+    }else{
+      downHitName = null;
+    }
+
+
   }
 
   void onUp(){
+
     OnUp.Invoke();
     float difT = endTime - startTime;
     Vector2 difP = endPos - startPos;
@@ -232,6 +264,7 @@ public class TouchToRay : MonoBehaviour {
       OnTap.Invoke();
     }
 
+    currentHitName = null;
 
    //print( difT );
    //print( difP );
