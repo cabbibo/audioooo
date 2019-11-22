@@ -1,4 +1,5 @@
 ﻿#pragma kernel Transfer
+#pragma kernel Goo
 
 struct Vert{
   float3 pos;
@@ -40,6 +41,45 @@ void Transfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     Vert b = _SkeletonBuffer[sID];
 
     p.pos      = mul(_Transform, float4( b.pos , 1));// = v;
+    p.nor      = normalize(mul(_Transform, float4( b.nor , 0)));
+    p.tangent  = normalize(mul(_Transform, float4( b.tangent , 0)));;
+    p.uv       = b.uv;
+
+    _VertBuffer[sID] = p;
+
+  }
+
+}
+
+float _Time;
+
+
+#include "../Chunks/noise.cginc"
+
+#define NR_THREADS 128
+[numthreads(NR_THREADS,1,1)]
+void Goo (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
+
+  int pID = threadID + u3GroupID.x * NR_THREADS;
+
+  int sID = safeID(pID, _VertBuffer_COUNT );
+
+
+  if( pID < _VertBuffer_COUNT ){
+    
+    Vert p = _VertBuffer[sID];
+    Vert b = _SkeletonBuffer[sID];
+
+    float3 targetPos = mul(_Transform, float4( b.pos , 1));
+
+    float3 force = -(p.pos - targetPos) * .003 * (noise( b.pos + _Time) +1.5);//hash(float(pID));
+
+
+    p.vel += force;
+    p.pos += p.vel;
+    p.vel *= .9;
+
+    //p.pos      = mul(_Transform, float4( b.pos , 1));// = v;
     p.nor      = normalize(mul(_Transform, float4( b.nor , 0)));
     p.tangent  = normalize(mul(_Transform, float4( b.tangent , 0)));;
     p.uv       = b.uv;

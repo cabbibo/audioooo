@@ -9,6 +9,7 @@ public class RotateWhileTouched : MonoBehaviour
 
   public float rotationSpeed;
   public float rotationVel;
+  public float rotation;
 
   public Vector3 oHit;
 
@@ -35,10 +36,11 @@ public class RotateWhileTouched : MonoBehaviour
 
   public void FixedUpdate(){
 
-      rotationSpeed *= .95f;
+      rotationSpeed *= .99f;
 
         oHit = touch.currentHitLocation;
       transform.Rotate(Vector3.forward * rotationSpeed);
+      rotation = transform.eulerAngles.z;
   }
 
 

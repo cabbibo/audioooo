@@ -19,7 +19,7 @@ public class SetToServerTime : Cycle
   }
 
   public override void OnBirthed(){
-    //animator.StopPlayback();
+    animator.StopPlayback();
     animator.Play(animationID, 0, 0.0f);
     oT = data.SERVER_TIME;
   }

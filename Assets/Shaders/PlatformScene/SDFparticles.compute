@@ -143,6 +143,7 @@ void Flow(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     fPos += vert.vel * _DT*60;
 
     vert.vel *= .9;//* minDist;
+    vert.nor = normalize(vert.vel);
     vert.life -= .002 * (hash(float(pID))  * .5 + .5);//_LifeReduceSpeed;
     
     vert.pos = fPos;
@@ -278,6 +279,7 @@ void Follow(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     vert.vel += force;
 
     vert.vel = normalize(vert.vel) * .02;
+    vert.nor = normalize(vert.vel);
 
 
     fPos += vert.vel * _DT*60;

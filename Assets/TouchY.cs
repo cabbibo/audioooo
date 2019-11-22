@@ -8,18 +8,17 @@ public class TouchY : MonoBehaviour
 
 
   public float y;
-  private BoxCollider bc;
-  void Start(){
-    bc = GetComponent<BoxCollider>();
-  }
-
+  public float x;
+  public float z;
+  public float down;
+  
   public void Touch( Ray r ){
     if(touch.currentHitName == gameObject.name && touch.downHitName == gameObject.name){
 
       Vector3 local = transform.InverseTransformPoint(touch.currentHitLocation);
-      print(local.z/GetComponent<BoxCollider>().size.z);
-      y = (local.z/bc.size.z) + .5f;//((local.z/bc.size.z) + 1) /2;
       y = local.z;
+      x = local.y;
+      z = local.x;
     }
   }
 }

@@ -145,7 +145,8 @@ void LifeSize (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     int col = pID % 2;
 
     float3 l = normalize(cross(p.nor,float3(0,1,0)));
-    float3 u = normalize(cross(p.nor,l));
+    float3 u = p.nor;//normalize(cross(p.nor,l));
+    //l = p.nor;
 
     l *= (float(col)-.5);
     u *= (float(row)-.5);

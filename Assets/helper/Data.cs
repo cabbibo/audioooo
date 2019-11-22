@@ -22,10 +22,13 @@ public class Data : Cycle
 
   public Transform camera;
   public float SERVER_TIME;
+
+  public AudioPlayer audio;
  // public HumanBuffer humans;
 
   public override void Create(){
  //   SafeInsert(humans);
+    SafeInsert( audio );
   }
 
 
