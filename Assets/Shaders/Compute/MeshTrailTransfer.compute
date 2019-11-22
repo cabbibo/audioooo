@@ -210,7 +210,7 @@ void Transfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
  
 
 
-  float3 fRadius = _Radius * _FullScale * clamp( head.debug.y,0,1);
+  float3 fRadius = _Radius * clamp( head.debug.y,0,1);
    // will be bugggyyy
     if( _Direction == 0 ){
       pos += baseVert.pos.y * tang * fRadius;
@@ -290,7 +290,7 @@ void PerTrailTransfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_Group
     float3 c3 = float3( xDir.z , yDir.z , zDir.z );
 
     float3x3 rotMat = float3x3(c1,c2,c3);
-    pos +=mul(rotMat,baseVert.pos) * _Radius * _FullScale  * min(val*4, 1-val); 
+    pos +=mul(rotMat,baseVert.pos) * _Radius * min(val*4, 1-val); 
 
     float2 fUV =baseVert.uv;
         //if( baseParticle.debug.x < 1 ){ fPos  = 0;}
