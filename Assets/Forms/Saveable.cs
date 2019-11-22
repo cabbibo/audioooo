@@ -53,10 +53,23 @@ public class Saveable {
 
 
 
+
   public static string GetFullName( string name ){
     return Application.dataPath + "/DNA/"+name+".dna";
   }
 
+
+  public static void DeleteAll(){
+
+    string path = Application.dataPath + "/DNA";
+
+
+    var hi = Directory.GetFiles(path);
+
+     for (int i = 0; i < hi.Length; i++) {
+         File.Delete(hi[i]);
+     }
+  }
   public static bool Check( string name ){
 
     if( name == null ){ Debug.Log("NO NAME"); }
@@ -67,6 +80,9 @@ public class Saveable {
   public static void Delete(string name ){
     File.Delete( GetFullName(name));
   }
+
+
+
 
   public static void Save( Form form){
 

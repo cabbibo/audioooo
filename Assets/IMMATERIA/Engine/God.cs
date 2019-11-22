@@ -102,6 +102,8 @@ public void FullRebuild(){
 
      f.alwaysRemake = true;
     }
+
+    Saveable.DeleteAll();
     Reset();
     OnDisable();
     OnEnable();
