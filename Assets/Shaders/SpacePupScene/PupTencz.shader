@@ -9,6 +9,7 @@
 
         _PLightMap("Painterly Light Map", 2D) = "white" {}
     _HueStart ("HueStart", Float) = 0
+    _Speed ("Speed", Float) = 0
 
   }
     SubShader
@@ -52,6 +53,7 @@ ZFail keep
             sampler2D _PLightMap;
 
             float _HueStart;
+            float _Speed;
 
             struct v2f { 
               float4 pos : SV_POSITION; 
@@ -143,8 +145,8 @@ ZFail keep
                // if( ( lookupVal + 1.3) - 1.2*length( tCol ) < .5 ){ discard;}
                // fixed4 col = float4( cCol , 1 ) * 2 * shadow * v.uv.x * 1.4 * tex2D(_ColorMap , float2( -length(tCol) * .2 * v.uv.x * v.uv.x*v.uv.x* .5 - val * .1  + sin( v.kelpID) * .02 +  _HueStart, 0) );// * saturate(20*-val);//* 20-10;//*tCol* lookupVal*4;//* 10 - 1;
                 
-                fixed4 col =  tex2D(_ColorMap,float2(v.uv.x  * .3+_HueStart, 0));
-                  col*= fLCol * tCol * 2;//tex2D(_MainTex,v.uv * 5);
+                fixed4 col =  tex2D(_ColorMap,float2(v.uv.x  * .3+_HueStart + _Time.y * .1 * _Speed, 0));
+                  col*= atten* tCol * 2;//tex2D(_MainTex,v.uv * 5);
                  // col*=shadow;
                 return col;
             }

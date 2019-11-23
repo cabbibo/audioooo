@@ -201,7 +201,7 @@ void Transfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     float3 c2 = float3( xDir.y , yDir.y , zDir.y );
     float3 c3 = float3( xDir.z , yDir.z , zDir.z );
 
-    float3x3 rotMat = float3x3(c1,c2,c3);
+    float3x3 rotMat = float3x3(c3,c1,c2);
     
  //  pos *= .00000000000000000000001;
  //    pos.x += hash(float(pID) * 10);//baseVert.pos.z  * normalize(nor) * hash(pID);
@@ -290,7 +290,9 @@ void PerTrailTransfer (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_Group
     float3 c3 = float3( xDir.z , yDir.z , zDir.z );
 
     float3x3 rotMat = float3x3(c1,c2,c3);
-    pos +=mul(rotMat,baseVert.pos) * _Radius * min(val*4, 1-val); 
+
+
+    pos +=mul(rotMat,baseVert.pos.yxz* float3(-1,1,-1)) * _Radius * min(val*10 , 1-val*val); 
 
     float2 fUV =baseVert.uv;
         //if( baseParticle.debug.x < 1 ){ fPos  = 0;}

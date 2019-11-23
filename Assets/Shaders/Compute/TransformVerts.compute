@@ -72,7 +72,7 @@ void Goo (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
 
     float3 targetPos = mul(_Transform, float4( b.pos , 1));
 
-    float3 force = -(p.pos - targetPos) * .003 * (noise( b.pos + _Time) +1.5);//hash(float(pID));
+    float3 force = -(p.pos - targetPos) * .01 * (noise( b.pos + _Time) +1.5);//hash(float(pID));
 
 
     p.vel += force;

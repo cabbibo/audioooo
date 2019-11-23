@@ -126,7 +126,7 @@ TRANSFER_VERTEX_TO_FRAGMENT(o);
           
                 half3 worldViewDir = normalize(UnityWorldSpaceViewDir(v.world));
                 //half3 worldRefl = reflect(-worldViewDir, worldNormal);
-                half3 worldRefl = refract(worldViewDir, worldNormal,.8);
+                half3 worldRefl = refract(worldViewDir, v.nor,.8);
                 half4 skyData = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, worldRefl);
                 half3 skyColor = DecodeHDR (skyData, unity_SpecCube0_HDR);
 
@@ -180,6 +180,8 @@ float atten = LIGHT_ATTENUATION(v);
                 float3 fCol=lerp( pow(length(tCol),3)* .3* s2*3, pow(length(tCol),3) * .1 * s2 ,shiny.x)  *_Saturation + _Brightness;//*shiny.x * fLCol;//fLCol*s3* skyColor;//v.nor * .5 + .5;
                 
                 fCol*= fLCol * 3;
+
+                fCol =tCol * s2;
                 //fCol = v.debug.x;
                 fixed4 col = float4(fCol,1);//fLCol;//float4( i.nor * .5 + .5 , 1);//tex2D(_MainTex, i.uv);
                 return col;

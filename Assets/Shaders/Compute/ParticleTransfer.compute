@@ -148,8 +148,10 @@ void LifeSize (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     float3 u = p.nor;//normalize(cross(p.nor,l));
     //l = p.nor;
 
-    l *= (float(col)-.5);
-    u *= (float(row)-.5);
+    float3 nor = normalize(cross(normalize(l),normalize(u)));;
+
+    l *= (float(col)-.5) ;
+    u *= (float(row)-.5)*1.618;
 
     float3 fPos = p.pos + (l + u) *  _Radius * min( max(3-p.debug.y * 3,0) , max(p.debug.y,0));
 
@@ -158,7 +160,7 @@ void LifeSize (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
     _VertBuffer[safeID(pID,_VertBuffer_COUNT)].pos = fPos;
     _VertBuffer[safeID(pID,_VertBuffer_COUNT)].vel = p.vel;
     _VertBuffer[safeID(pID,_VertBuffer_COUNT)].uv = fUV;
-    _VertBuffer[safeID(pID,_VertBuffer_COUNT)].nor = p.nor;
+    _VertBuffer[safeID(pID,_VertBuffer_COUNT)].nor =nor;
     _VertBuffer[safeID(pID,_VertBuffer_COUNT)].debug = float2( particleID , p.debug.y );
 
 }

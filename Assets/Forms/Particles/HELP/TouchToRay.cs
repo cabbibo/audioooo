@@ -74,6 +74,7 @@ public class TouchToRay : MonoBehaviour {
   public string currentHitName;
   public Vector3 currentHitLocation;
   public string downHitName;
+  public float power;
 
   void Start(){}
   
@@ -191,6 +192,13 @@ public class TouchToRay : MonoBehaviour {
 
 
   
+      if( Down == 1 ){
+        power += .02f;
+      }else{
+        power -= .005f;
+      }
+
+      power = Mathf.Clamp( power , 0 , 1);
 
 
 

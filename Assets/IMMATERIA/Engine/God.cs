@@ -127,6 +127,8 @@ public void FullRebuild(){
 
 public void LateUpdate(){
 
+    if(!godPause){
+
     if( started == false ){ 
         _OnLive(); 
         started = true;
@@ -137,6 +139,7 @@ public void LateUpdate(){
     if( dying ){ _WhileDying(1); }
 
     if( created ){ _WhileDebug(); }
+}
 
 }
 

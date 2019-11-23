@@ -56,8 +56,6 @@ public class SampleSynth : MonoBehaviour
       float fLength = length + lengthRandomness * Random.Range( -.5f, .5f);
       float fPitch = pitch + pitchRandomness * Random.Range( -.5f, .5f);
 
-      print(fLocation);
-
       if( fLocation < 0 ){ fLocation = Mathf.Abs( fLocation ); }
       if( fLocation > clip.length ){ fLocation = clip.length-(fLocation - clip.length);}
 
