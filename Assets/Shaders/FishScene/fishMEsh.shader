@@ -106,7 +106,8 @@ LIGHTING_COORDS(5,6)
                 o.tspace2 = half3(wTangent.z, wBitangent.z, wNormal.z);
 
 
-TRANSFER_VERTEX_TO_FRAGMENT(o);
+
+            UNITY_TRANSFER_SHADOW(o,o.world);
                 return o;
             }
 
@@ -139,7 +140,7 @@ TRANSFER_VERTEX_TO_FRAGMENT(o);
              
 
 ///in frag shader;
-float atten = LIGHT_ATTENUATION(v);
+float atten =UNITY_SHADOW_ATTENUATION(v,v.world);
                 //m = 1-pow(-fern,.5);//*fern*fern;//pow( fern * fern, 1);
                 //m = saturate( 1-m );
 

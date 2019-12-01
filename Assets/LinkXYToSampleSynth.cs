@@ -9,9 +9,8 @@ public class LinkXYToSampleSynth : MonoBehaviour
    public TouchY touch;
    public TouchToRay t;
 
-   public void Upate(){
-    print( t.power );
-    synth.location = (touch.y +1) * 10;
-    synth.volume = t.power;
+   public void Update(){
+    synth.location = (touch.y +1) * 10 ;
+    synth.volume = t.power* touch.down;
    }
 }

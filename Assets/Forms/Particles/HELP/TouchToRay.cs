@@ -193,9 +193,9 @@ public class TouchToRay : MonoBehaviour {
 
   
       if( Down == 1 ){
-        power += .02f;
+        power += .1f;
       }else{
-        power -= .005f;
+        power -= .02f;
       }
 
       power = Mathf.Clamp( power , 0 , 1);

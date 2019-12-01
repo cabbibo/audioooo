@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace IMMATERIA {
 public class CalcLife : Life{
@@ -12,13 +13,25 @@ public class CalcLife : Life{
   public ComputeBuffer _buffer;
   public bool readBack;
   
+  public bool newData;
+
   public override void _Create(){
-     boundForms = new Dictionary<string, Form>();
-     boundInts = new Dictionary<string, int>();
-     boundAttributes = new List<BoundAttribute>();
-     FindKernel();
-     GetNumThreads();
-    // OnCreate();
+    DoCreate();
+    boundForms = new Dictionary<string, Form>();
+    boundInts = new Dictionary<string, int>();
+    boundAttributes = new List<BoundAttribute>();
+
+    boundIntList = new List<BoundInt>();
+    boundFloatList = new List<BoundFloat>();
+    boundFloatsList = new List<BoundFloats>();
+    boundVector2List = new List<BoundVector2>();
+    boundVector3List = new List<BoundVector3>();
+    boundVector4List = new List<BoundVector4>();
+    boundMatrixList = new List<BoundMatrix>();
+    boundTextureList = new List<BoundTexture>();
+    boundBufferList = new List<BoundBuffer>();
+    FindKernel();
+    GetNumThreads();
      
      _buffer = new ComputeBuffer((int)count, 4 * sizeof(float));
      
@@ -41,9 +54,16 @@ public class CalcLife : Life{
   }
 
   public override void AfterDispatch(){
+    newData = false;
     if( readBack ){
-      _buffer.GetData(values);
-      DecodeData(values);
+       AsyncGPUReadback.Request(_buffer, OnRead); ;
+    }
+  }
+
+  public virtual void OnRead(AsyncGPUReadbackRequest data){
+    if( data.done){
+      DecodeData(data.GetData<float>().ToArray());
+      newData = true;
     }
   }
 

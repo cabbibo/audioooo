@@ -55,13 +55,13 @@ public class Saveable {
 
 
   public static string GetFullName( string name ){
-    return Application.dataPath + "/DNA/"+name+".dna";
+    return Application.streamingAssetsPath + "/DNA/"+name+".dna";
   }
 
 
   public static void DeleteAll(){
 
-    string path = Application.dataPath + "/DNA";
+    string path = Application.streamingAssetsPath + "/DNA";
 
 
     var hi = Directory.GetFiles(path);
@@ -104,7 +104,7 @@ public class Saveable {
     if( File.Exists(GetFullName(form.saveName))){
       
       BinaryFormatter bf = new BinaryFormatter();
-      FileStream stream = new FileStream(GetFullName(form.saveName),FileMode.Open);
+      FileStream stream = File.OpenRead(GetFullName(form.saveName));
 
 
       

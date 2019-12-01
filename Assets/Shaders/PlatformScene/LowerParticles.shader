@@ -22,13 +22,13 @@ Tags { "RenderType"="Opaque" }
 
         Cull Off
 // Lighting/ Texture Pass
-Stencil
+/*Stencil
 {
 Ref 4
 Comp always
 Pass replace
 ZFail keep
-}
+}*/
 
           Tags{ "LightMode" = "ForwardBase" }
             CGPROGRAM
@@ -51,6 +51,7 @@ ZFail keep
       samplerCUBE _CubeMap;
 
             sampler2D _PLightMap;
+            sampler2D _AudioMap;
 
             float _HueStart;
             float _Saturation;
@@ -114,6 +115,8 @@ ZFail keep
 
 
 
+
+                float4 audio = tex2D(_AudioMap, float2(v.kelpID * .0001 - tCol.x * .1,0));
                 float3 fNor = v.nor;
                 float m = dot(_WorldSpaceLightPos0.xyz , fNor);
  float4 p = tex2D( _PLightMap , v.uv  );
@@ -147,6 +150,7 @@ ZFail keep
                 
                 fixed4 col =  tex2D(_ColorMap,float2(_HueStart + dot( v.nor , float3(0,1,0)), 0))  * _Saturation + (1-_Saturation);
                   col*= tCol;//(1-cutOff) * tCol * 2;//tex2D(_MainTex,v.uv * 5);
+                col *= audio;
                  // col*=shadow;
                 return col;
             }
@@ -197,7 +201,7 @@ ZFail keep
 
                // SHADOW PASS
 
-    Pass
+ /*   Pass
     {
 
 // Outline Pass
@@ -267,7 +271,7 @@ Pass replace
         }
 
     
-  
+  */
   
   
   }

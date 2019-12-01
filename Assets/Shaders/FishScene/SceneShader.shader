@@ -43,12 +43,16 @@ ZFail keep
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            
+            #pragma target 4.5
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
 
             // compile shader into multiple variants, with and without shadows
             // (we don't care about any lightmaps yet, so skip these variants)
-            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
+            //#pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
+
+ #pragma multi_compile_fwdbase
             // shadow helper functions and macros
             #include "AutoLight.cginc"
 
@@ -65,7 +69,8 @@ ZFail keep
 
                 fixed3 ambient : COLOR1;
 
-                SHADOW_COORDS(6) // put shadows data into TEXCOORD1
+              // in v2f struct;
+LIGHTING_COORDS(5,6)
             };
 
             float3 _TouchLocation;
@@ -94,7 +99,7 @@ ZFail keep
 
                 o.ambient = ShadeSH9(half4(wNormal,1));
 
-                TRANSFER_SHADOW(o)
+            UNITY_TRANSFER_SHADOW(o,o.worldPos);
                 return o;
             }
 
@@ -117,7 +122,9 @@ ZFail keep
                 worldNormal.x = dot(i.tspace0, tnormal);
                 worldNormal.y = dot(i.tspace1, tnormal);
                 worldNormal.z = dot(i.tspace2, tnormal);
-                fixed atten = .5+.5*SHADOW_ATTENUATION(i);
+
+                float attenuation = UNITY_SHADOW_ATTENUATION(i,i.worldPos);
+                fixed atten = .5+.5*attenuation;
                 float m = dot( worldNormal , _WorldSpaceLightPos0 );
                 m *= atten;
                 float3 c2 = tex2D(_ColorMap, float2(m  * _ColorSize  + _ColorStart,0));
@@ -216,5 +223,5 @@ Pass replace
   
     }
 
-FallBack "Diffuse"
+FallBack "diffuse"
 }

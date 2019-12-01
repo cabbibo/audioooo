@@ -18,6 +18,8 @@ public class MeshVerts : Form {
     public float2 debug;
   };*/
 
+
+
   public override void Create(){
 
     //if( meshFilter == null ){ meshFilter = GetComponent<MeshFilter>(); } 

@@ -19,6 +19,9 @@ public class TouchY : MonoBehaviour
       y = local.z;
       x = local.y;
       z = local.x;
+      down = 1;
+    }else{
+      down = 0;
     }
   }
 }

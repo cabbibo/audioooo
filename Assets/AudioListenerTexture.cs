@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AudioListenerTexture : MonoBehaviour
+namespace IMMATERIA{
+public class AudioListenerTexture : Form
 {
 
     private int width; // texture width
@@ -11,14 +12,24 @@ public class AudioListenerTexture : MonoBehaviour
     public int size = 1024; // size of sound segment displayed in texture
 
     private Color[] blank; // blank image array
-    public Texture2D AudioTexture;
+    public Texture2D texture;
     public float[] samples; // audio samples array
     public float[] lowRes;
     public int lowResSize;// = 256;
 
     public ComputeBuffer _buffer;
 
-    void OnEnable ( )
+    public Color[] pixels;
+
+    public override void SetStructSize(){
+      structSize = 4;
+    }
+
+    public override void SetCount(){
+      count = size * 2;
+    }
+
+    public override void Create()
     {
         width = size;
         height = 1;
@@ -29,67 +40,40 @@ public class AudioListenerTexture : MonoBehaviour
         lowResSize = 64;
 
         // create the AudioTexture and assign to the guiTexture:
-        AudioTexture = new Texture2D ( width, height );
+        texture = new Texture2D ( width, height );
+        pixels = texture.GetPixels(0,0,width,1 );
 
         // create a 'blank screen' image
         blank = new Color [ width * height ];
 
-        _buffer = new ComputeBuffer ( size, 4 * sizeof ( float ) );
-
-        for ( int i = 0; i < blank.Length; i++ )
-        {
+        for ( int i = 0; i < blank.Length; i++ ){
             blank [ i ] = backgroundColor;
         }
 
         // refresh the display each 100mS
     }
 
-    void OnDisable ( )
-    {
-        _buffer.Release ( );
-    }
 
-    void Update ( )
-    {
-        GetCurWave ( );
-    }
 
-    void GetCurWave ( )
-    {
-        // clear the AudioTexture
-        // AudioTexture.SetPixels (blank, 0);
-
-        // get samples from channel 0 (left)
-        //GetComponent<AudioListener>().GetOutputData (samples, 0);
+    public override void WhileLiving( float v ){
 
         AudioListener.GetSpectrumData ( samples, 0, FFTWindow.Triangle );
-        //AudioListener.GetSpectrumData(lowRes, 0, FFTWindow.Triangle);
-
-        //Color c;
-        //float r , g, b, a;
-
-        Color[] pixels = AudioTexture.GetPixels(0,0,width,1 );
-        //print( pixels.Length );
-        // Color og;
-        // draw the waveform
+        pixels = texture.GetPixels(0,0,width,1 );
         for ( int i = 0; i < size; i++ )
         {
-
-            // og = pixels[i];//AudioTexture.GetPixel((int)(width * i / size), (int)(1 * (samples [i])) - 1 );
 
             pixels [ i ].r = pixels [ i ].r * .8f + samples [ ( int ) ( i * 4 ) + 0 ] * 128;
             pixels [ i ].g = pixels [ i ].g * .8f + samples [ ( int ) ( i * 4 ) + 1 ] * 128;
             pixels [ i ].b = pixels [ i ].b * .8f + samples [ ( int ) ( i * 4 ) + 2 ] * 128;
             pixels [ i ].a = pixels [ i ].a * .8f + samples [ ( int ) ( i * 4 ) + 3 ] * 128;
 
-            //pixels[i].Set(r, g, b, a);
+        }   
 
-            //AudioTexture.SetPixel((int)(width * i / size), (int)(1 * (samples [i])) - 1, c );
-        }   // upload to the graphics card
+        texture.SetPixels ( pixels );
+        texture.Apply();
 
-        AudioTexture.SetPixels ( pixels );
-        AudioTexture.Apply ( );
-
-         //_buffer.SetData ( pixels );
+        SetData( samples );
+        Shader.SetGlobalTexture( "_AudioMap" , texture );
     }
-}
+
+}}

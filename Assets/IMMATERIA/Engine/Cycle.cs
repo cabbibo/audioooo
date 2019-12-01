@@ -6,25 +6,25 @@ namespace IMMATERIA {
 [ExecuteInEditMode]
 public class Cycle : MonoBehaviour{
 
-[HideInInspector] public bool created = false;
+ public bool created = false;
 
-[HideInInspector] public bool begunGestation = false;
-[HideInInspector] public bool gestating = false;
-[HideInInspector] public bool gestated = false;
+ public bool begunGestation = false;
+ public bool gestating = false;
+ public bool gestated = false;
 
-[HideInInspector] public bool begunBirth = false;
-[HideInInspector] public bool birthing = false;
-[HideInInspector] public bool birthed = false;
+ public bool begunBirth = false;
+ public bool birthing = false;
+ public bool birthed = false;
 
-[HideInInspector] public bool begunLive = false;
-[HideInInspector] public bool living = false;
-[HideInInspector] public bool lived = false;
+ public bool begunLive = false;
+ public bool living = false;
+ public bool lived = false;
 
-[HideInInspector] public bool begunDeath = false;
-[HideInInspector] public bool dying = false;
-[HideInInspector] public bool died = false;
+ public bool begunDeath = false;
+ public bool dying = false;
+ public bool died = false;
 
-[HideInInspector] public bool destroyed = true;
+ public bool destroyed = true;
 
   public bool debug = false;
   public bool active = false;
@@ -47,6 +47,8 @@ public class Cycle : MonoBehaviour{
   /*void OnDisable(){
     if( living ){ _Deactivate(false); }
   }*/
+
+
 
 
 
@@ -254,7 +256,7 @@ public class Cycle : MonoBehaviour{
 
   protected void DoLiving(float v){
     
-    if( active ){
+    if( active && living ){
       WhileLiving(v);
 
       foreach( Cycle c in Cycles ){

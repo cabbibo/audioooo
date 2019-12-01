@@ -22,13 +22,13 @@ Tags { "RenderType"="Opaque" }
 
         Cull Off
 // Lighting/ Texture Pass
-Stencil
+/*Stencil
 {
 Ref 4
 Comp always
 Pass replace
 ZFail keep
-}
+}*/
 
           Tags{ "LightMode" = "ForwardBase" }
             CGPROGRAM
@@ -197,7 +197,7 @@ ZFail keep
 
                // SHADOW PASS
 
-    Pass
+ /*   Pass
     {
 
 // Outline Pass
@@ -260,9 +260,9 @@ Pass replace
             ENDCG
         }
 
-    
   
   
+  */
   
   }
 
