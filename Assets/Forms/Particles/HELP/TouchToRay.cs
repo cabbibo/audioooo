@@ -87,7 +87,7 @@ public class TouchToRay : MonoBehaviour {
     oP2 = p2;
     oDown2 = Down2;
 
-    #if UNITY_EDITOR  
+    #if UNITY_EDITOR || UNITY_STANDALONE  
       if (Input.GetMouseButton (0)) {
         Down = 1;
         p  =  Input.mousePosition;///Input.GetTouch(0).position;

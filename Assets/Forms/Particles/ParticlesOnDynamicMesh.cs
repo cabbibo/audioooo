@@ -62,7 +62,7 @@ public class ParticlesOnDynamicMesh: Particles {
       }else if( noiseType == "band"){
 
         float avePos = verts[tri0].y + verts[tri1].y + verts[tri2].y;
-        area = HELP.AreaOfTriangle (verts[tri0], verts[tri1], verts[tri2])/(.01f + Mathf.Abs(100 * avePos));
+        area = HELP.AreaOfTriangle (verts[tri0], verts[tri1], verts[tri2])/(.1f + Mathf.Abs(.1f * avePos));
       }
 
       triangleAreas[i] = area;

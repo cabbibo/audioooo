@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -110,31 +111,46 @@ public class Saveable {
       
       if( form.intBuffer ){
         int[] data = bf.Deserialize(stream) as int[];
-        if( data.Length != form.count * form.structSize ){
-          form.DebugThis("YOUR INPUT DATA IS OFF");
+         if( data == null ){
+          form.DebugThis("YOUR  DATA IS NULL");
           form.saveName = GetSafeName();
           form.Embody();
           form.loadedFromFile = false;
           Saveable.Save(form);
-
         }else{
-          //form.DebugThis("loadedFromFileee");
-          form.SetDNA(data);
+          if( data.Length != form.count * form.structSize ){
+            form.DebugThis("YOUR INPUT DATA IS OFF");
+            form.saveName = GetSafeName();
+            form.Embody();
+            form.loadedFromFile = false;
+            Saveable.Save(form);
+
+          }else{
+            //form.DebugThis("loadedFromFileee");
+            form.SetDNA(data);
+          }
         }
       }else{
         float[] data = bf.Deserialize(stream) as float[];
+        if( data == null ){
+            form.DebugThis("YOUR  DATA IS NULL");
+            form.saveName = GetSafeName();
+            form.Embody();
+            form.loadedFromFile = false;
+            Saveable.Save(form);
+          }else{
+          if( data.Length != form.count * form.structSize ){
+            form.DebugThis("YOUR INPUT DATA IS OFF");
+            form.saveName = GetSafeName();
+            form.Embody();
+            form.loadedFromFile = false;
+            Saveable.Save(form);
 
-        if( data.Length != form.count * form.structSize ){
-          form.DebugThis("YOUR INPUT DATA IS OFF");
-          form.saveName = GetSafeName();
-          form.Embody();
-          form.loadedFromFile = false;
-          Saveable.Save(form);
-
-        }else{
-          
-         // form.DebugThis("loadedFromFileee");
-          form.SetDNA(data);
+          }else{
+            
+           // form.DebugThis("loadedFromFileee");
+            form.SetDNA(data);
+          }
         }
       }
 

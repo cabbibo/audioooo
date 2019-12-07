@@ -129,17 +129,17 @@ public void LateUpdate(){
 
     if(!godPause){
 
-    if( started == false ){ 
-        _OnLive(); 
-        started = true;
-    }
-    
-    if( birthing ){ _WhileBirthing(1);}
-    if( living ){ _WhileLiving(1); }
-    if( dying ){ _WhileDying(1); }
+        if( started == false ){ 
+            _OnLive(); 
+            started = true;
+        }
+        
+        if( birthing ){ _WhileBirthing(1);}
+        if( living ){ _WhileLiving(1); }
+        if( dying ){ _WhileDying(1); }
 
-    if( created ){ _WhileDebug(); }
-}
+        if( created ){ _WhileDebug(); }
+    }
 
 }
 

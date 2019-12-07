@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using IMMATERIA;
 
+[ExecuteAlways]
 public class SampleSynth : MonoBehaviour
 {
 

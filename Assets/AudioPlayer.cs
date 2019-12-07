@@ -96,6 +96,15 @@ public class AudioPlayer : Cycle{
         Play(clip);
     }
 
+    public void Play( AudioClip clip , int step , float volume, AudioMixer mixer, string group ){
+        float p = Mathf.Pow( 1.05946f , (float)step );
+        sources[playID].volume = volume;
+        sources[playID].pitch = p;
+        sources[playID].outputAudioMixerGroup = mixer.FindMatchingGroups(group)[0];
+        Play(clip);
+    }
+
+
     public void Play(AudioClip clip , float pitch , float volume,float location,float length){
         
         sources[playID].volume = volume;
