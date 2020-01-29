@@ -8,12 +8,18 @@ public class TouchFlick : MonoBehaviour
    public TouchToRay touch;
    public Rigidbody rb;
 
-   public void Start(){
+   public void OnEnable(){
     rb = GetComponent<Rigidbody>();
+    touch.WhileDown.AddListener( Touch );
+   }
+
+   public void OnDisable(){
+    rb = GetComponent<Rigidbody>();
+    touch.WhileDown.RemoveListener( Touch);
    }
 
 
-   public void Touch( Ray r ){
+   public void Touch( Ray r ){  
     if( touch.downHitName == gameObject.name ){
       Vector3 dir = new Vector3( touch.vel.x , touch.vel.y , 0 );
 

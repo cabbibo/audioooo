@@ -14,24 +14,22 @@ public class AudioPlayer : Cycle{
 
     private static AudioPlayer _instance;
 
-    private GameObject[] objects;
-    private AudioSource[] sources;
+    [HideInInspector]public GameObject[] objects;
+    [HideInInspector]public AudioSource[] sources;
 
 
     public override void Create(){
 
         if( objects != null ){
+            print("not null");
             for( int i = 0; i < objects.Length; i++ ){
                 Object.DestroyImmediate(objects[i]);//.Destroy();
             }
+        }else{
+            print("nullll");
         }
 
-        if( Instance == null ){
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }else{
-            //Destroy( gameObject);
-        }
+       
 
         sources = new AudioSource[numSources];
         objects = new GameObject[numSources];
@@ -43,6 +41,14 @@ public class AudioPlayer : Cycle{
             sources[i] = objects[i].AddComponent<AudioSource>() as AudioSource;
             sources[i].dopplerLevel = 0;
             sources[i].playOnAwake = false;
+        }
+    }
+
+    public override void Destroy(){
+        if( objects != null ){
+        for( int i = 0; i < objects.Length; i++ ){
+                Object.DestroyImmediate(objects[i]);//.Destroy();
+            }
         }
     }
 

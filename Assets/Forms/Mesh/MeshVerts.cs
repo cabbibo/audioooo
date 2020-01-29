@@ -23,6 +23,7 @@ public class MeshVerts : Form {
   public override void Create(){
 
     //if( meshFilter == null ){ meshFilter = GetComponent<MeshFilter>(); } 
+    print( meshFilter);
     mesh = meshFilter.sharedMesh;
 
   }
@@ -33,6 +34,7 @@ public class MeshVerts : Form {
   }
 
   public override void SetCount(){ 
+    DebugThis( "" + mesh );
 
     count = mesh.vertices.Length;
   }

@@ -13,6 +13,14 @@ public class RotateWhileTouched : MonoBehaviour
 
   public Vector3 oHit;
 
+    public void OnEnable(){
+    touch.WhileDown.AddListener( Rotate );
+   }
+
+   public void OnDisable(){
+    touch.WhileDown.RemoveListener( Rotate);
+   }
+
   public void Rotate( Ray r ){
     if(touch.currentHitName == gameObject.name && touch.downHitName == gameObject.name ){
 

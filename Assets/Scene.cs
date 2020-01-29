@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace IMMATERIA {
 public class Scene : Cycle {
-
+public  Transform view;
 public void OnEnable(){
 
     Reset();

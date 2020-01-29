@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace IMMATERIA {
 public class God : Cycle {
-
+    public SceneSwitcher sceneSwitcher;
 public bool AllInEditMode;
 private static God _instance;
   
@@ -53,6 +53,11 @@ public override void Create(){
 
 public override void OnBirthed(){
     GetCycleInfo( this );
+    foreach(Scene scene in sceneSwitcher.scenes ){
+        print("sceness");
+        scene.gameObject.SetActive(true);
+    }
+    sceneSwitcher.SwitchScene( sceneSwitcher.currScene );
 }
 
 public void GetCycleInfo( Cycle cycle ){
@@ -227,6 +232,7 @@ public void Rebuild(){
     Reset();
     OnDisable();
     OnEnable();
+
 }
 
 
