@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -127,22 +128,7 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 7195d51396892d74da2fcf2ad155895f,
-        type: 3}
-      propertyPath: m_Name
-      value: skull
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 7195d51396892d74da2fcf2ad155895f,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: -8439495034464297207, guid: 7195d51396892d74da2fcf2ad155895f,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2281645788995446417, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_Layer
       value: 8
@@ -150,37 +136,37 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.246
+      value: -19.822218
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.71
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5499
+      value: -3.9033532
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.048877355
+      value: 0.27223778
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.93422735
+      value: 0.5257392
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.32398477
+      value: 0.18232371
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.14094046
+      value: -0.78501153
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
@@ -195,7 +181,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 162.84201
+      value: 292.378
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7195d51396892d74da2fcf2ad155895f,
         type: 3}
@@ -216,6 +202,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.019234134
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7195d51396892d74da2fcf2ad155895f,
+        type: 3}
+      propertyPath: m_Name
+      value: skull
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7195d51396892d74da2fcf2ad155895f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281645788995446417, guid: 7195d51396892d74da2fcf2ad155895f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7195d51396892d74da2fcf2ad155895f, type: 3}
@@ -265,6 +266,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -358,6 +360,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -515,7 +518,7 @@ Transform:
   m_GameObject: {fileID: 275023048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.06, y: 2.06, z: 2.06}
   m_Children: []
   m_Father: {fileID: 973060157}
   m_RootOrder: 0
@@ -556,6 +559,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -626,6 +630,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -706,8 +711,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -721,7 +726,7 @@ MonoBehaviour:
   Cycles:
   - {fileID: 1583762085}
   renderSize: 1024
-  camSize: 1
+  camSize: 1.03
   texture: {fileID: 0}
   layerToRender: 
   debugRenderer: {fileID: 275023052}
@@ -733,8 +738,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406005515}
-  m_LocalRotation: {x: 0.155153, y: 0.2721698, z: 0.32663313, w: 0.89171857}
-  m_LocalPosition: {x: -21.064133, y: 3.0820036, z: -6.063095}
+  m_LocalRotation: {x: 0.00648046, y: -0.16790205, z: 0.46057236, w: 0.87157327}
+  m_LocalPosition: {x: -21.294487, y: 3.34, z: -4.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 973060157}
@@ -744,7 +749,7 @@ Transform:
   - {fileID: 1773972832}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 5.676, y: 36.132, z: 42.088}
+  m_LocalEulerAnglesHint: {x: 9.553, y: -16.902, z: 54.285004}
 --- !u!1 &657664527
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,8 +789,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -822,8 +827,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -860,8 +865,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -898,8 +903,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -936,8 +941,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -983,8 +988,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1009,23 +1014,23 @@ MonoBehaviour:
   Base: {fileID: 1583762084}
   Hair: {fileID: 657664532}
   transformArray:
-  - 0.6384688
-  - 0.6669856
-  - -0.3840415
+  - 0.519364
+  - 0.80066895
+  - 0.2986473
   - 0
-  - -0.49807376
-  - 0.7384767
-  - 0.45450497
+  - -0.8050213
+  - 0.57566226
+  - -0.1433657
   - 0
-  - 0.58675396
-  - -0.09890628
-  - 0.8037023
+  - -0.28670844
+  - -0.16595848
+  - 0.9435338
   - 0
-  - -21.064133
-  - 3.0820036
-  - -6.063095
+  - -21.294487
+  - 3.34
+  - -4.97
   - 1
-  numFrames: 2322
+  numFrames: 16224
 --- !u!4 &657664534
 Transform:
   m_ObjectHideFlags: 0
@@ -1065,8 +1070,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -1158,7 +1164,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.94275093, g: 0, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1175,7 +1181,7 @@ Camera:
   far clip plane: 100
   field of view: 72.2
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 1.03
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1199,7 +1205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973060155}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.49}
+  m_LocalPosition: {x: -0.366, y: 0.433, z: 1.255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 275023049}
@@ -1252,6 +1258,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1337,8 +1344,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1393,8 +1400,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1438,8 +1445,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1482,8 +1489,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1520,8 +1527,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1619,8 +1626,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1633,7 +1640,7 @@ MonoBehaviour:
   data: {fileID: 1366617169}
   Cycles: []
   camera: {fileID: 252232025}
-  SERVER_TIME: 323.99765
+  SERVER_TIME: 323.39142
   audio: {fileID: 0}
 --- !u!114 &1366617170
 MonoBehaviour:
@@ -1653,7 +1660,7 @@ MonoBehaviour:
   gestated: 1
   begunBirth: 1
   birthing: 0
-  birthed: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -1667,6 +1674,7 @@ MonoBehaviour:
   Cycles:
   - {fileID: 1366617169}
   - {fileID: 406005516}
+  sceneSwitcher: {fileID: 0}
   AllInEditMode: 1
   started: 1
   godPause: 0
@@ -1744,6 +1752,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2123,8 +2132,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -2155,8 +2164,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -2193,8 +2202,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
@@ -2233,8 +2242,8 @@ MonoBehaviour:
   gestating: 0
   gestated: 1
   begunBirth: 1
-  birthing: 0
-  birthed: 1
+  birthing: 1
+  birthed: 0
   begunLive: 1
   living: 1
   lived: 0
