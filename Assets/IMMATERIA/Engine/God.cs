@@ -53,11 +53,13 @@ public override void Create(){
 
 public override void OnBirthed(){
     GetCycleInfo( this );
-    foreach(Scene scene in sceneSwitcher.scenes ){
-        print("sceness");
-        scene.gameObject.SetActive(true);
+    if( sceneSwitcher != null ){
+        foreach(Scene scene in sceneSwitcher.scenes ){
+            print("sceness");
+            scene.gameObject.SetActive(true);
+        }
+        sceneSwitcher.SwitchScene( sceneSwitcher.currScene );
     }
-    sceneSwitcher.SwitchScene( sceneSwitcher.currScene );
 }
 
 public void GetCycleInfo( Cycle cycle ){

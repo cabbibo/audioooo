@@ -56,5 +56,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+*.dna
+
 # Crashlytics generated file
 crashlytics-build.properties
