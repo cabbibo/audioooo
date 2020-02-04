@@ -57,6 +57,9 @@ sysinfo.txt
 *.unitypackage
 
 *.dna
+*.obj
+*.DNA
+*.OBJ
 
 # Crashlytics generated file
 crashlytics-build.properties
