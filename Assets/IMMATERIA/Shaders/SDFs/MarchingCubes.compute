@@ -1,4 +1,5 @@
 ﻿#pragma kernel March
+#pragma kernel Reset
 
 
 
@@ -27,7 +28,7 @@ struct Vert
   float2 debug;
 };
 
-StructuredBuffer<F> _VolumeBuffer;
+RWStructuredBuffer<F> _VolumeBuffer;
 RWStructuredBuffer<Vert> _VertBuffer;
 
 Texture3D<float4> Texture;
@@ -168,6 +169,22 @@ void March (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID, uint3 i
 
    }
   }
+
+}
+
+
+#define NR_THREADS 64
+[numthreads(NR_THREADS,1,1)]
+void Reset(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID, uint3 id : SV_DispatchThreadID) {
+  
+  // Get the id using thread / group indices
+  uint pID = threadID + u3GroupID.x * NR_THREADS;
+
+      _VertBuffer[pID].pos = -1;
+      _VertBuffer[pID].nor = -1;
+      _VertBuffer[pID].debug = -1;
+
+
 
 
 }

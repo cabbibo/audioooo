@@ -1,4 +1,5 @@
 ﻿#pragma kernel Sphere
+#pragma kernel Reset
 
 
 
@@ -124,6 +125,21 @@ void Sphere(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
 
   v.dist = d;// pos.x * 20;//float(pID % int(_Dimensions.x))/ float(_Dimensions.x);
   v.nor = GetNor(pos);//float3(0,1,0);
+  _VolumeBuffer[pID] = v;
+
+}
+
+
+#define NR_THREADS 128
+[numthreads(NR_THREADS,1,1)]
+void Reset(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
+
+  int pID = threadID + u3GroupID.x * NR_THREADS;
+
+  pID = safeID(pID,_VolumeBuffer_COUNT);
+  Volume v = _VolumeBuffer[pID];
+  v.dist = 10000;// pos.x * 20;//float(pID % int(_Dimensions.x))/ float(_Dimensions.x);
+  v.nor = 10000;//GetNor(pos);//float3(0,1,0);
   _VolumeBuffer[pID] = v;
 
 }

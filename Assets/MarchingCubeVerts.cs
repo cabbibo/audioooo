@@ -32,6 +32,11 @@ public class MarchingCubeVerts : Form
     List<Vector3> normals = new List<Vector3>();
     List<int> indices = new List<int>();
 
+    positions.Clear();
+    normals.Clear();
+    indices.Clear();
+
+
     int index = 0;
     for( int i  = 0; i < count; i++ ){  
 
@@ -40,7 +45,7 @@ public class MarchingCubeVerts : Form
         Vector3 n = -1 * new Vector3( values[ i * 8 + 3 ] ,values[ i * 8 + 4 ],values[ i * 8 + 5 ]);
 
         if( index < 100 ){
-          print( n );
+          //print( n );
         }
 
         positions.Add( p );
@@ -51,12 +56,13 @@ public class MarchingCubeVerts : Form
 
     }
 
-   // print( index );
+    print( index );
 
 
 
-
-    MakeGameObject(positions, normals, indices);
+    if( index != 0 ){
+      MakeGameObject(positions, normals, indices);
+    }
 
   }
 

@@ -13,12 +13,16 @@ public class MeshFromSDF : Simulation
   public MarchingCubeVerts verts;
   public Life marchingLife;
   public Material meshMaterial;
+  public Life resetLife;
+  public Life marchingResetLife;
 
 
   public override void Create(){
 
     SafeInsert( verts );
     SafeInsert( marchingLife );
+    SafeInsert( resetLife );
+    SafeInsert( marchingResetLife );
 
   }
 
@@ -45,6 +49,11 @@ public class MeshFromSDF : Simulation
     marchingLife.BindVector3( "_Extents"     , () => ((Form3D)form).extents );
 
     marchingLife.BindTexture("Texture",() =>((Form3D)form)._texture );
+
+
+    resetLife.BindPrimaryForm("_VolumeBuffer",form);
+    marchingResetLife.BindPrimaryForm("_VertBuffer",verts);
+    marchingResetLife.BindForm("_VolumeBuffer",form);
 
 
   }
@@ -112,9 +121,10 @@ public class MeshFromSDF : Simulation
 
   public void MakeMesh(){
 
-    form.Embody();
+    resetLife.YOLO();
+    marchingResetLife.YOLO();
     life.YOLO();
-    ((Form3D)form).RemakeTexture();
+    //((Form3D)form).RemakeTexture();
     marchingLife.YOLO();
    // verts.MakeMesh();
     AddVertsMesh();
@@ -183,7 +193,7 @@ public class MeshFromSDF : Simulation
     go.GetComponent<MeshFilter>().mesh = mesh;
     go.transform.parent = transform;
 
-    MeshToFile( "Testio1" , MeshToString("Testio" ,positions.ToArray(), normals.ToArray(),indices.ToArray() ));
+    MeshToFile( "Testio1" , MeshToString("Testio" ,positions.ToArray(), mesh.normals,indices.ToArray() ));
 
   }
 
