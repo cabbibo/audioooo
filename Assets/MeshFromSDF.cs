@@ -175,7 +175,7 @@ public class MeshFromSDF : Simulation
     mesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(100, 100, 100));
     mesh.SetTriangles(indices.ToArray(), 0);
 
-    //mesh.RecalculateNormals();
+    mesh.RecalculateNormals();
     
     go.AddComponent<MeshFilter>();
     go.AddComponent<MeshRenderer>();
