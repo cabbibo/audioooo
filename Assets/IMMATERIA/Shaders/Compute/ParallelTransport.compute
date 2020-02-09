@@ -26,6 +26,7 @@ float _Radius;
 
 float3 _CameraForward;
 float3 _CameraUp;
+float3 _CameraRight;
 
 
 
@@ -250,9 +251,9 @@ void Basis (uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
   float3 t0_0 = normalize(p2(2,hID) - p2(1,hID));
 
   float3 dir = t0;
-  float3 tangent0 = -normalize( cross(t0 ,_CameraUp));
+  float3 tangent0 = -normalize( cross(t0 ,-_CameraForward));
 
-  dir = normalize(cross( t0 , _CameraUp ));
+  dir = normalize(cross( t0 , -_CameraForward ));
 
   //if( dot( t0 , _CameraUp ) < 0 ){ tangent0 *= -1; }
 

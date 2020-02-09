@@ -6,6 +6,7 @@ public class Hamburger : MonoBehaviour
 {
     public Menu menu;
     void OnMouseDown(){
+      print("um hiiii");
       menu.Toggle();
     }
 }

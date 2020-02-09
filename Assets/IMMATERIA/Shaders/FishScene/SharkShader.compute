@@ -80,7 +80,7 @@ void Flow(uint threadID : SV_GroupIndex, uint3 u3GroupID : SV_GroupID) {
      force += curlNoise( vert.pos * 10 ) * 1.1;
     vert.vel += force * .9;
 
-    vert.vel = normalize( vert.vel) * .04;//_FlowSpeed;
+    vert.vel = normalize( vert.vel) * .1;//_FlowSpeed;
     vert.pos += vert.vel * _DT * 60;
 
 

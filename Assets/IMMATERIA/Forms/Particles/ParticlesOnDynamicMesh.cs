@@ -27,6 +27,7 @@ public class ParticlesOnDynamicMesh: Particles {
 
   public override void Embody(){
 
+    DebugThis( "" + mesh );
     Mesh m = mesh.sharedMesh;
 
     int[] triangles = m.triangles;

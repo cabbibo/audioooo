@@ -11,6 +11,14 @@ public class TouchY : MonoBehaviour
   public float x;
   public float z;
   public float down;
+
+  public void OnEnable(){
+    touch.WhileDown.AddListener( Touch );
+  }
+
+  public void OnDisable(){
+    touch.WhileDown.RemoveListener( Touch );
+  }
   
   public void Touch( Ray r ){
     if(touch.currentHitName == gameObject.name && touch.downHitName == gameObject.name){

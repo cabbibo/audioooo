@@ -4,7 +4,7 @@ using UnityEngine;
 using IMMATERIA;
 
   [ExecuteAlways]
-public class SceneSwitcher : MonoBehaviour
+public class SceneSwitcher : Cycle
 {
 
   public Scene[] scenes;
@@ -18,15 +18,23 @@ public class SceneSwitcher : MonoBehaviour
   public float switchSpeed;
   public float switchTime;
 
+  public bool allOn;
+
   public Menu menu;
+
+  public override void Create(){
+    for(int i =0; i < scenes.Length; i++ ){
+      SafeInsert(scenes[i]);
+    }
+  }
 
 
   public void SwitchScene( int scene ){
 
       for(int i =0; i < scenes.Length; i++ ){
         if( i != currScene && i != scene){
-          scenes[i].gameObject.SetActive( false);
-          scenes[i].active = false;
+          scenes[i].gameObject.SetActive( allOn);
+          scenes[i].active = allOn;
         }
       }
     oldScene = currScene;
@@ -44,7 +52,7 @@ public class SceneSwitcher : MonoBehaviour
 
   }
 
-  public void Update(){
+  public override void WhileLiving(float t){
     if( switching == true ){
       float v = (Time.time - switchTime)/switchSpeed;
       if( v > 1 ){

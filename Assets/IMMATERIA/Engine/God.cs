@@ -46,7 +46,13 @@ public override void Create(){
         print("DUDE WHERE'S MY DATA");
     }
 
-   //Application.targetFrameRate = 60;
+    if( sceneSwitcher != null ){
+        SafeInsert( sceneSwitcher  );
+    }else{
+        print( "DUDE WHERE'S MY SCENE SWITCHER");
+    }
+
+   Application.targetFrameRate = 60;
 
 
 }

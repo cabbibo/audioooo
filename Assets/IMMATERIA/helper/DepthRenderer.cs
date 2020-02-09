@@ -21,8 +21,7 @@ public class DepthRenderer : Cycle
 
   private RenderTextureDescriptor textureDescriptor;
 
-  public override void Create(){
-    
+  public override void OnBirthed(){
     Set();
   }
 
@@ -34,7 +33,7 @@ public class DepthRenderer : Cycle
 
   public void Set(){
     
-
+    cam.enabled = true;
     textureDescriptor = new RenderTextureDescriptor( renderSize,renderSize,RenderTextureFormat.Depth,24);
     texture = RenderTexture.GetTemporary( textureDescriptor );
     cam.orthographicSize = camSize; 
@@ -46,6 +45,7 @@ public class DepthRenderer : Cycle
     debugRenderer.transform.localScale = Vector3.one * cam.orthographicSize * 2;
 
     RenderTexture.ReleaseTemporary( texture );
+    cam.enabled = false;
 
   }
 

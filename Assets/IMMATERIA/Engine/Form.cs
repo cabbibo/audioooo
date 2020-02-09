@@ -85,6 +85,8 @@ public class Form : Cycle {
 
   public float[] GetFloatData(){
     float[] val = new float[count*structSize];
+
+    DebugThis( "float" );
     GetData(val);
     return val;
   }
@@ -94,7 +96,14 @@ public class Form : Cycle {
   }
 
   public void GetData( int[] values ){ _buffer.GetData(values); }
-  public void GetData( float[] values ){ _buffer.GetData(values); }
+  public void GetData( float[] values ){ 
+    DebugThis(""+_buffer); 
+    DebugThis("" + values.Length );
+    DebugThis("" + values );
+    _buffer.GetData(values);
+
+    DebugThis("HSIS" ); 
+  }
 
   public void SetData( float[] values ){ _buffer.SetData( values );}
   public void SetData( int[] values ){ _buffer.SetData( values ); }
